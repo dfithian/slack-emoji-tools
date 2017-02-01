@@ -59,7 +59,7 @@ main = do
                      . html . allNamed (only "p") . attributed (ix "class" . nearly "" (elem "alert_error" . words))
         in unless (null alerts) $ do
           traverse_ (putStrLn . ("Alert: " <>) . tshow) alerts
-          if dontFail then pure () else fail "saw some alerts and got scared!"
+          unless dontFail $ fail "saw some alerts and got scared!"
 
   emoji <-
     map (\ s -> (pack . dropExtension . takeFileName $ s, inputDirectory </> s)) .
